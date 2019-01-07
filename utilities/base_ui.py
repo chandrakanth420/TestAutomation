@@ -2,7 +2,7 @@ import datetime
 import logging
 import os
 
-import pyautogui
+#import pyautogui
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -35,12 +35,12 @@ class BaseUI():
         dt_format = '%Y%m%d_%H%M%S'
         return datetime.datetime.fromtimestamp(time.time()).strftime(dt_format)
 
-    def take_screenshot(self, screenshot_name):
-        date_time = self.get_date_time()
-        if not os.path.exists(GlobalVariables.screenshot_path):
-            os.makedirs(GlobalVariables.screenshot_path)
-        pic = pyautogui.screenshot()
-        pic.save(GlobalVariables.screenshot_path + '/' + screenshot_name + date_time + '.png')
+    #def take_screenshot(self, screenshot_name):
+        #date_time = self.get_date_time()
+        #if not os.path.exists(GlobalVariables.screenshot_path):
+            #os.makedirs(GlobalVariables.screenshot_path)
+        #pic = pyautogui.screenshot()
+        #pic.save(GlobalVariables.screenshot_path + '/' + screenshot_name + date_time + '.png')
 
     def close_browser(self, driver):
         driver.quit()
