@@ -10,7 +10,7 @@ class TestingError(RuntimeError):
 
 
 class userapi(TaskSequence):
-    userapi_id = 10
+    userapi_id = " "
     payload = """{
         "name" : "anti",
         "avatar" : "PyPerformance_POST",
@@ -29,7 +29,7 @@ class userapi(TaskSequence):
 
     @seq_task(2)
     def userapi_GET(self):
-        self.r = self.client.get("/api/users/" + self.userapi_id)
+        self.r = self.client.get("/api/users/3")
         logging.info("Response status code:", self.r.status_code)
 
 
