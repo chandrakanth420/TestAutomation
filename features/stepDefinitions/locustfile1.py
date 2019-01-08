@@ -10,7 +10,7 @@ class TestingError(RuntimeError):
 
 
 class userapi(TaskSequence):
-    userapi_id = " "
+    userapi_id = 10
     payload = """{
         "name" : "anti",
         "avatar" : "PyPerformance_POST",
