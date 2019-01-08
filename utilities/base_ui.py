@@ -45,8 +45,8 @@ class BaseUI():
 		date_time = self.get_date_time()
 		if not os.path.exists(GlobalVariables.screenshot_path):
 			#os.makedirs(GlobalVariables.screenshot_path)
-		pic = pyautogui.screenshot()
-		pic.save(GlobalVariables.screenshot_path + \\ + screenshot_name + date_time + '.png')
+			pic = pyautogui.screenshot()
+			pic.save(GlobalVariables.screenshot_path + \\ + screenshot_name + date_time + '.png')
 
 	def close_browser(self, driver):
 		driver.quit()
