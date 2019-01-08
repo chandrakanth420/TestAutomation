@@ -2,7 +2,7 @@ import datetime
 import logging
 import os
 
-#import pyautogui
+import pyautogui
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -24,7 +24,13 @@ class BaseUI():
     global driver
 
     def launch_browser(self):
-        driver = webdriver.Chrome(ChromeDriverManager().install())
+		chrome_options = webdriver.ChromeOptions()
+		chrome_options.add_argument('--headless')
+		#chrome_options.add_argument('--no-sandbox') # required when running as root user. otherwise you would get no sandbox errors.
+		driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', chrome_options=chrome_options)
+
+		
+        #driver = webdriver.Chrome(ChromeDriverManager().install())
         driver.implicitly_wait(30)
         driver.maximize_window()
         driver.get(Login.tours_test_url)
@@ -35,12 +41,12 @@ class BaseUI():
         dt_format = '%Y%m%d_%H%M%S'
         return datetime.datetime.fromtimestamp(time.time()).strftime(dt_format)
 
-    #def take_screenshot(self, screenshot_name):
-        #date_time = self.get_date_time()
-        #if not os.path.exists(GlobalVariables.screenshot_path):
+    def take_screenshot(self, screenshot_name):
+        date_time = self.get_date_time()
+        if not os.path.exists(GlobalVariables.screenshot_path):
             #os.makedirs(GlobalVariables.screenshot_path)
-        #pic = pyautogui.screenshot()
-        #pic.save(GlobalVariables.screenshot_path + '/' + screenshot_name + date_time + '.png')
+        pic = pyautogui.screenshot()
+        pic.save(GlobalVariables.screenshot_path + \\ + screenshot_name + date_time + '.png')
 
     def close_browser(self, driver):
         driver.quit()
