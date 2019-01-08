@@ -44,7 +44,7 @@ class BaseUI():
 	def take_screenshot(self, screenshot_name):
 		date_time = self.get_date_time()
 		if not os.path.exists(GlobalVariables.screenshot_path):
-		#os.makedirs(GlobalVariables.screenshot_path)
+			#os.makedirs(GlobalVariables.screenshot_path)
 		pic = pyautogui.screenshot()
 		pic.save(GlobalVariables.screenshot_path + \\ + screenshot_name + date_time + '.png')
 
