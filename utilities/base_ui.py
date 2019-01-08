@@ -13,51 +13,51 @@ logging.basicConfig(level=logging.INFO)
 
 
 class LoginError(RuntimeError):
-    pass
+	pass
 
 
 class Login():
-    tours_test_url = 'http://newtours.demoaut.com/'
+	tours_test_url = 'http://newtours.demoaut.com/'
 
 
 class BaseUI():
-    global driver
+	global driver
 
-    def launch_browser(self):
-	chrome_options = webdriver.ChromeOptions()
-	chrome_options.add_argument('--headless')
-	#chrome_options.add_argument('--no-sandbox') # required when running as root user. otherwise you would get no sandbox errors.
-	driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', chrome_options=chrome_options)
+	def launch_browser(self):
+		chrome_options = webdriver.ChromeOptions()
+		chrome_options.add_argument('--headless')
+		#chrome_options.add_argument('--no-sandbox') # required when running as root user. otherwise you would get no sandbox errors.
+		driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', chrome_options=chrome_options)
 
 		
-        #driver = webdriver.Chrome(ChromeDriverManager().install())
-        driver.implicitly_wait(30)
-        driver.maximize_window()
-        driver.get(Login.tours_test_url)
-        return driver
+		#driver = webdriver.Chrome(ChromeDriverManager().install())
+		driver.implicitly_wait(30)
+		driver.maximize_window()
+		driver.get(Login.tours_test_url)
+		return driver
 
-    def get_date_time(self):
-        """Return date_time"""
-        dt_format = '%Y%m%d_%H%M%S'
-        return datetime.datetime.fromtimestamp(time.time()).strftime(dt_format)
+	def get_date_time(self):
+		"""Return date_time"""
+		dt_format = '%Y%m%d_%H%M%S'
+		return datetime.datetime.fromtimestamp(time.time()).strftime(dt_format)
 
-    def take_screenshot(self, screenshot_name):
-        date_time = self.get_date_time()
-        if not os.path.exists(GlobalVariables.screenshot_path):
-            #os.makedirs(GlobalVariables.screenshot_path)
-        pic = pyautogui.screenshot()
-        pic.save(GlobalVariables.screenshot_path + \\ + screenshot_name + date_time + '.png')
+	def take_screenshot(self, screenshot_name):
+		date_time = self.get_date_time()
+		if not os.path.exists(GlobalVariables.screenshot_path):
+		#os.makedirs(GlobalVariables.screenshot_path)
+		pic = pyautogui.screenshot()
+		pic.save(GlobalVariables.screenshot_path + \\ + screenshot_name + date_time + '.png')
 
-    def close_browser(self, driver):
-        driver.quit()
+	def close_browser(self, driver):
+		driver.quit()
 
-    def login_application(self, driver, login_type):
-        if login_type not in Login.logins_dict.keys():
-            logging.info(" Entered In valid login type")
-            raise LoginError("account type not in our list")
+	def login_application(self, driver, login_type):
+		if login_type not in Login.logins_dict.keys():
+			logging.info(" Entered In valid login type")
+			raise LoginError("account type not in our list")
 
-        username, password = Login.logins_dict[login_type]
-        driver.find_element(By.NAME, "username").send_keys(username)
-        driver.find_element(By.NAME, "password").send_keys(password)
-        driver.find_element(By.CSS_SELECTOR, "#login").click()
-        return
+		username, password = Login.logins_dict[login_type]
+		driver.find_element(By.NAME, "username").send_keys(username)
+		driver.find_element(By.NAME, "password").send_keys(password)
+		driver.find_element(By.CSS_SELECTOR, "#login").click()
+		return
